@@ -19,19 +19,21 @@ const reactionSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
+    get: (timestamp) => dateFormat(timestamp),
   },
 });
 
 // Define a new schema named `thoughtSchema` for the subdocument
 const thoughtSchema = new mongoose.Schema({
   thoughtText: { type: String, required: true, minLength: 1, maxLength: 280 },
-  createdAt: { type: Date, default: Date.now },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    get: (timestamp) => dateFormat(timestamp),
+  },
   username: { type: String, required: true },
   reactions: [reactionSchema],
 });
-
-// Define a new schema named `friendSchema` for the subdocument
-const friendSchema = new mongoose.Schema({});
 
 // Construct a new instance of the schema class
 const userSchema = new mongoose.Schema({
@@ -43,8 +45,18 @@ const userSchema = new mongoose.Schema({
     match: /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/,
   },
   thoughts: [thoughtSchema],
-  friends: [friendSchema],
+  friends: [
+    {
+      type: mongoose.Schema.type.ObjectId,
+      ref: "User",
+    },
+  ],
 });
+
+// Create models from schema
+const User = mongoose.model("User", userSchema);
+const Thought = mongoose.model("Thought", thoughtSchema);
+const Reaction = mongoose.model("Reaction", reactionSchema);
 
 const reactionData = [
   {
@@ -59,38 +71,93 @@ const reactionData = [
 
 const thoughtData = [
   {
-    thoughtText: "This is the first thought.",
+    thoughtText: "This is my thought!",
     username: "Cody",
-    reactions: [reactionSchema],
+    reactions: [
+      {
+        reactionBody: "Cool thought!",
+        username: "Megan",
+      },
+      {
+        reactionBody: "I agree!",
+        username: "Cody",
+      },
+    ],
   },
   {
-    thoughtText: "This is the second thought",
-    username: "Cody",
-    reactions: [reactionSchema],
+    thoughtText: "This is a way better thought!",
+    username: "Megan",
+    reactions: [
+      {
+        reactionBody: "Interesting!",
+        username: "Cody",
+      },
+      {
+        reactionBody: "Whoa!",
+        username: "Lane",
+      },
+    ],
+  },
+  {
+    thoughtText: "This is the best thought ever!",
+    username: "Lane",
+    reactions: [
+      {
+        reactionBody: "So cool!",
+        username: "Cody",
+      },
+      {
+        reactionBody: "Agreed!",
+        username: "Megan",
+      },
+    ],
   },
 ];
 
-const User = mongoose.model("User", userSchema);
 
-User.create({
-  username: "Cody",
-  email: "cprademacher36@gmail.com",
-})
-  .then((data) => console.log(data))
-  .catch((err) => console.log(err));
+async function seedDatabase() {
+  try {
+    // Clear existing data (optional)
+    await User.deleteMany({});
+    await Thought.deleteMany({});
+    await Reaction.deleteMany({});
 
-User.create({
-  username: "Megan",
-  email: "megrad77@gmail.com",
-})
-  .then((data) => console.log(data))
-  .catch((err) => console.log(err));
+    // Create users, thoughts, and reactions
+    User.create({
+        username: "Cody",
+        email: "cprademacher36@gmail.com",
+        thoughts: [thoughtData],
+      })
+        .then((data) => console.log(data))
+        .catch((err) => console.log(err));
+      
+      User.create({
+        username: "Megan",
+        email: "megrad77@gmail.com",
+        thoughts: [thoughtData],
+      })
+        .then((data) => console.log(data))
+        .catch((err) => console.log(err));
+      
+      User.create({
+        username: "Lane",
+        email: "laneparr@gmail.com",
+        thoughts: [thoughtData],
+      })
+        .then((data) => console.log(data))
+        .catch((err) => console.log(err));
 
-User.create({
-  username: "Lane",
-  email: "laneparr@gmail.com",
-})
-  .then((data) => console.log(data))
-  .catch((err) => console.log(err));
+    const createdThoughts = await Thought.insertMany(thoughtData);
 
-module.exports = User;
+    console.log("Sample data created successfully");
+  } catch (error) {
+    console.error("Error creating sample data:", error);
+  } finally {
+    // Disconnect from the database
+    mongoose.disconnect();
+  }
+}
+
+seedDatabase();
+
+module.exports = { User, Thought, Reaction };
