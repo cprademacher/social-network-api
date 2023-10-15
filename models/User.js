@@ -47,7 +47,7 @@ const userSchema = new mongoose.Schema({
   thoughts: [thoughtSchema],
   friends: [
     {
-      type: mongoose.Schema.type.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
   ],
@@ -57,17 +57,6 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model("User", userSchema);
 const Thought = mongoose.model("Thought", thoughtSchema);
 const Reaction = mongoose.model("Reaction", reactionSchema);
-
-const reactionData = [
-  {
-    reactionBody: "This is awesome!",
-    username: "Cody",
-  },
-  {
-    reactionBody: "This is not as awesome!",
-    username: "Cody",
-  },
-];
 
 const thoughtData = [
   {
@@ -114,50 +103,29 @@ const thoughtData = [
   },
 ];
 
+// Create users, thoughts, and reactions
+User.create({
+  username: "Cody",
+  email: "cprademacher36@gmail.com",
+  thoughts: thoughtData,
+})
+  .then((data) => console.log(data))
+  .catch((err) => console.log(err));
 
-async function seedDatabase() {
-  try {
-    // Clear existing data (optional)
-    await User.deleteMany({});
-    await Thought.deleteMany({});
-    await Reaction.deleteMany({});
+User.create({
+  username: "Megan",
+  email: "megrad77@gmail.com",
+  thoughts: thoughtData,
+})
+  .then((data) => console.log(data))
+  .catch((err) => console.log(err));
 
-    // Create users, thoughts, and reactions
-    User.create({
-        username: "Cody",
-        email: "cprademacher36@gmail.com",
-        thoughts: [thoughtData],
-      })
-        .then((data) => console.log(data))
-        .catch((err) => console.log(err));
-      
-      User.create({
-        username: "Megan",
-        email: "megrad77@gmail.com",
-        thoughts: [thoughtData],
-      })
-        .then((data) => console.log(data))
-        .catch((err) => console.log(err));
-      
-      User.create({
-        username: "Lane",
-        email: "laneparr@gmail.com",
-        thoughts: [thoughtData],
-      })
-        .then((data) => console.log(data))
-        .catch((err) => console.log(err));
+User.create({
+  username: "Lane",
+  email: "laneparr@gmail.com",
+  thoughts: thoughtData,
+})
+  .then((data) => console.log(data))
+  .catch((err) => console.log(err));
 
-    const createdThoughts = await Thought.insertMany(thoughtData);
-
-    console.log("Sample data created successfully");
-  } catch (error) {
-    console.error("Error creating sample data:", error);
-  } finally {
-    // Disconnect from the database
-    mongoose.disconnect();
-  }
-}
-
-seedDatabase();
-
-module.exports = { User, Thought, Reaction };
+module.exports = User;

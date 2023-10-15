@@ -1,7 +1,7 @@
 const express = require("express");
 const db = require("./config/connection");
 // Require model
-const { User } = require("./models");
+const { User, Reaction, Thought } = require("./models");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -17,7 +17,8 @@ app.get("/all-users", async (req, res) => {
     const userData = await User.find({});
     res.status(200).json(userData);
   } catch (err) {
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: "Internal server error this one" });
+    console.log(err);
   }
 });
 
