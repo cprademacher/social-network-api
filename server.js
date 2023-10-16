@@ -21,6 +21,16 @@ app.get("/all-users", async (req, res) => {
   }
 });
 
+// GET all thoughts
+app.get("/all-thoughts", async (req, res) => {
+  try {
+    const thoughtData = await Thought.find({});
+    res.status(200).json(thoughtData);
+  } catch (err) {
+    res.status(500).json({ message: "Internal server error." });
+  }
+});
+
 // GET a single user by its _id and populated thought and friend data
 app.get("/user-by-id/:id", async (req, res) => {
   const userId = req.params.id;

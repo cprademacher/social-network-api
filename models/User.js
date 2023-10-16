@@ -31,7 +31,7 @@ const thoughtSchema = new mongoose.Schema({
     default: Date.now,
     get: (timestamp) => dateFormat(timestamp),
   },
-  username: { type: String, required: true },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   reactions: [reactionSchema],
 });
 
@@ -103,11 +103,18 @@ const thoughtData = [
   },
 ];
 
+const newThought = new Thought({
+    thoughtText: "This is a thought",
+    user: "652dbb93c00a8fe0668c3da2",
+  });
+  
+  newThought.save();
+
 // Create users, thoughts, and reactions
 User.create({
   username: "Cody",
   email: "cprademacher36@gmail.com",
-  thoughts: thoughtData,
+  //   thoughts: thoughtData,
 })
   .then((data) => console.log(data))
   .catch((err) => console.log(err));
@@ -115,7 +122,7 @@ User.create({
 User.create({
   username: "Megan",
   email: "megrad77@gmail.com",
-  thoughts: thoughtData,
+  //   thoughts: thoughtData,
 })
   .then((data) => console.log(data))
   .catch((err) => console.log(err));
@@ -123,7 +130,8 @@ User.create({
 User.create({
   username: "Lane",
   email: "laneparr@gmail.com",
-  thoughts: thoughtData,
+  thoughts: newThought,
+  //   thoughts: thoughtData,
 })
   .then((data) => console.log(data))
   .catch((err) => console.log(err));
