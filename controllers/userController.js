@@ -1,4 +1,4 @@
-const { User, Thought } = require("../models/User");
+const { User, Thought } = require("../models");
 
 module.exports = {
   async getUsers(req, res) {
@@ -6,13 +6,15 @@ module.exports = {
       const users = await User.find();
       res.json(users);
     } catch (err) {
-      res.status(500).json(err);
+      res.status(500).json({ message: "THIS NO WORK." });
     }
   },
 
   async getSingleUser(req, res) {
     try {
-      const user = await User.findOne({ _id: req.params.userId }).select("-__v");
+      const user = await User.findOne({ _id: req.params.userId }).select(
+        "-__v"
+      );
 
       if (!user) {
         return res.status(404).json({ message: "No user with that ID." });

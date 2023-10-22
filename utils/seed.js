@@ -138,3 +138,5 @@ connection.once("open", async () => {
   console.info("Seeding complete! 🌱");
   process.exit(0);
 });
+
+// User data was seeded as well as thought data, but thoughts were not connected to the users
