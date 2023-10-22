@@ -2,7 +2,7 @@
 const { Schema, model } = require("mongoose");
 
 // Define a new schema named `thoughtSchema` for the subdocument
-const thoughtSchema = new mongoose.Schema(
+const thoughtSchema = new Schema(
   {
     thoughtText: { type: String, required: true, minLength: 1, maxLength: 280 },
     createdAt: {

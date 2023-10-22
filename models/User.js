@@ -2,7 +2,7 @@
 const { Schema, model } = require("mongoose");
 
 // Construct a new instance of the schema class
-const userSchema = new mongoose.Schema(
+const userSchema = new Schema(
   {
     username: { type: String, unique: true, required: true, trim: true },
     email: {
