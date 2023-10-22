@@ -4,8 +4,8 @@ const { Schema, Types } = require("mongoose");
 // Define a new schema named 'reactionSchema' for the subdocument
 const reactionSchema = new Schema({
   reactionId: {
-    type: mongoose.Schema.Types.ObjectId,
-    default: () => new mongoose.Types.ObjectId(),
+    type: Schema.Types.ObjectId,
+    default: () => new Schema.Types.ObjectId(),
   },
   reactionBody: {
     type: String,
