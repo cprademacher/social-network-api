@@ -1,4 +1,4 @@
-const { User, Thought } = require("../models");
+const User = require("../models/User");
 
 module.exports = {
   async getUsers(req, res) {
@@ -6,7 +6,7 @@ module.exports = {
       const users = await User.find();
       res.json(users);
     } catch (err) {
-      res.status(500).json({ message: "THIS NO WORK." });
+      res.status(500).json(err);
     }
   },
 

@@ -8,8 +8,11 @@ const {
   updateThought,
 } = require("../../controllers/thoughtController");
 
-// Route for getting all thoughts and creating a thought is /api/thoughts
-router.route("/").get(getThoughts).post(createThought);
+// Route for getting all thoughts
+router.route("/").get(getThoughts);
+
+// Route for adding a new thought
+router.route("/").post(createThought);
 
 // Route for getting single thought by id
 router.route("/:thoughtId").get(getSingleThought);
@@ -18,6 +21,6 @@ router.route("/:thoughtId").get(getSingleThought);
 router.route("/:thoughtId").delete(deleteThought);
 
 // Route for updating a thought by id
-router.toure("/:thoughtId").put(updateThought);
+router.route("/:thoughtId").put(updateThought);
 
 module.exports = router;
