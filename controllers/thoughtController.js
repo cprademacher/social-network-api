@@ -4,9 +4,10 @@ module.exports = {
   async getThoughts(req, res) {
     try {
       const thoughts = await Thought.find();
+      console.log(thoughts);
       res.json(thoughts);
     } catch (err) {
-      return res.status(500).json(err);
+      return res.status(500).json({ error: "Internal server error" });
     }
   },
 
@@ -19,10 +20,10 @@ module.exports = {
       if (!thought) {
         res.status(404).json({ message: "No thought with this ID." });
       }
-
+      console.log(thought);
       res.json(thought);
     } catch (err) {
-      return res.status(500).json(err);
+      return res.status(500).json({ error: "Internal server error" });
     }
   },
 
@@ -31,7 +32,7 @@ module.exports = {
       const dbThoughtData = await Thought.create(req.body);
       res.json(dbThoughtData);
     } catch (err) {
-      return res.status(500).json(err);
+      return res.status(500).json({ error: "Internal server error" });
     }
   },
 
@@ -41,13 +42,13 @@ module.exports = {
         req.params.thoughtId
       );
 
-      if (!deleteThought) {
+      if (!deletedThought) {
         res.status(404).json({ message: "No thought with that id found." });
       }
 
       res.json(deletedThought);
     } catch (err) {
-      return res.status(500).json(err);
+      return res.status(500).json({ error: "Internal server error" });
     }
   },
 
@@ -65,7 +66,7 @@ module.exports = {
 
       return res.json(updatedThought);
     } catch (err) {
-      return res.status(500).json(err);
+      return res.status(500).json({ error: "Internal server error" });
     }
   },
 };

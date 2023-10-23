@@ -8,11 +8,8 @@ const {
   updateThought,
 } = require("../../controllers/thoughtController");
 
-// Route for getting all thoughts
-router.route("/").get(getThoughts);
-
-// Route for adding a new thought
-router.route("/").post(createThought);
+// Route for getting all thoughts and post to create a new thought
+router.route("/").get(getThoughts).post(createThought);;
 
 // Route for getting single thought by id
 router.route("/:thoughtId").get(getSingleThought);

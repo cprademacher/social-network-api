@@ -6,7 +6,7 @@ module.exports = {
       const users = await User.find();
       res.json(users);
     } catch (err) {
-      res.status(500).json(err);
+      return res.status(500).json({ error: "Internal server error" });
     }
   },
 
@@ -22,7 +22,7 @@ module.exports = {
 
       res.json(user);
     } catch (err) {
-      res.status(500).json(err);
+      res.status(500).json({ error: "Internal server error" });
     }
   },
 
@@ -31,7 +31,7 @@ module.exports = {
       const dbUserData = await User.create(req.body);
       res.json(dbUserData);
     } catch (err) {
-      return res.status(500).json(err);
+      return res.status(500).json({ error: "Internal server error" });
     }
   },
 
@@ -46,7 +46,7 @@ module.exports = {
       await Thought.deleteMany({ _id: { $in: deletedUser.thoughts } });
       res.json({ message: "User and associated thoughts deleted!" });
     } catch (err) {
-      return res.status(500).json(err);
+      return res.status(500).json({ error: "Internal server error" });
     }
   },
 
@@ -64,7 +64,7 @@ module.exports = {
 
       return res.json(updatedUser);
     } catch (err) {
-      return res.status(500).json(err);
+      return res.status(500).json({ error: "Internal server error" });
     }
   },
 };

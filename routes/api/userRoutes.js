@@ -8,11 +8,8 @@ const {
   updateUser,
 } = require("../../controllers/userController");
 
-// Route for getting all users
-router.route("/").get(getUsers);
-
-// Route for adding a new user
-router.route("/").post(createUser);
+// Route for getting all users and create a new user
+router.route("/").get(getUsers).post(createUser);
 
 // Route for getting single user by id
 router.route("/:userId").get(getSingleUser);
