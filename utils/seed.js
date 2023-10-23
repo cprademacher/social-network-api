@@ -47,86 +47,26 @@ connection.once("open", async () => {
     {
       thoughtText: "This is my thought!",
       username: "Cody",
-      reactions: [
-        {
-          reactionBody: "Cool thought!",
-          username: "Megan",
-        },
-        {
-          reactionBody: "I agree!",
-          username: "Cody",
-        },
-      ],
     },
     {
       thoughtText: "This is a way better thought!",
       username: "Megan",
-      reactions: [
-        {
-          reactionBody: "Interesting!",
-          username: "Cody",
-        },
-        {
-          reactionBody: "Whoa!",
-          username: "Lane",
-        },
-      ],
     },
     {
       thoughtText: "This is the best thought ever!",
       username: "Lane",
-      reactions: [
-        {
-          reactionBody: "So cool!",
-          username: "Cody",
-        },
-        {
-          reactionBody: "Agreed!",
-          username: "Megan",
-        },
-      ],
     },
     {
       thoughtText: "Joseph Crackstone is the worst.",
       username: "Wednesday",
-      reactions: [
-        {
-          reactionBody: "Agreed!",
-          username: "Lane",
-        },
-        {
-          reactionBody: "Yeah, what a creep!",
-          username: "Megan",
-        },
-      ],
     },
     {
       thoughtText: "What a great day!",
       username: "Owen",
-      reactions: [
-        {
-          reactionBody: "It is!",
-          username: "Cody",
-        },
-        {
-          reactionBody: "Hear hear!",
-          username: "Lane",
-        },
-      ],
     },
     {
       thoughtText: "The beach is the best place to be!",
       username: "Megan",
-      reactions: [
-        {
-          reactionBody: "I prefer the mountains.",
-          username: "Cody",
-        },
-        {
-          reactionBody: "The beach is so great!",
-          username: "Lane",
-        },
-      ],
     },
   ];
 
