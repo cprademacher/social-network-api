@@ -1,5 +1,6 @@
 // Require schema and model from mongoose
 const { Schema, model } = require("mongoose");
+const Thought = require("./Thought");
 
 // Construct a new instance of the schema class
 const userSchema = new Schema(
@@ -14,13 +15,13 @@ const userSchema = new Schema(
     thoughts: [
       {
         type: Schema.Types.ObjectId,
-        ref: "thought",
+        ref: "Thought",
       },
     ],
     friends: [
       {
         type: Schema.Types.ObjectId,
-        ref: "user",
+        ref: "User",
       },
     ],
   },
