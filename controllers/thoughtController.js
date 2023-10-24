@@ -38,7 +38,7 @@ module.exports = {
 
   async deleteThought(req, res) {
     try {
-      const deletedThought = await Thought.findOneAndDelete(
+      const deletedThought = await Thought.findByIdAndDelete(
         req.params.thoughtId
       );
 
@@ -46,7 +46,7 @@ module.exports = {
         res.status(404).json({ message: "No thought with that id found." });
       }
 
-      res.json(deletedThought);
+      res.json({ message: "Successfully deleted!"});
     } catch (err) {
       return res.status(500).json({ error: "Internal server error" });
     }

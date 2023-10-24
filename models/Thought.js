@@ -23,7 +23,7 @@ const thoughtSchema = new Schema(
       default: Date.now,
       get: dateFormat, // Use the dateFormat function
     },
-    username: { type: Schema.Types.ObjectId, ref: "User" },
+    username: { type: String, required: true },
     reactions: [
       {
         type: Schema.Types.ObjectId,

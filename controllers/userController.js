@@ -37,13 +37,14 @@ module.exports = {
 
   async deleteUser(req, res) {
     try {
-      const deletedUser = User.findOneAndDelete({ _id: req.params.userId });
+      const deletedUser = await User.findByIdAndDelete({
+        _id: req.params.userId,
+      });
 
       if (!deletedUser) {
         res.status(404).json({ message: "No user with that ID." });
       }
 
-      await Thought.deleteMany({ _id: { $in: deletedUser.thoughts } });
       res.json({ message: "User and associated thoughts deleted!" });
     } catch (err) {
       return res.status(500).json({ error: "Internal server error" });

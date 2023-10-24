@@ -9,7 +9,7 @@ const {
 } = require("../../controllers/thoughtController");
 
 // Route for getting all thoughts and post to create a new thought
-router.route("/").get(getThoughts).post(createThought);;
+router.route("/").get(getThoughts).post(createThought);
 
 // Route for getting single thought by id
 router.route("/:thoughtId").get(getSingleThought);
